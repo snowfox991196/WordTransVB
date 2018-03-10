@@ -4,20 +4,27 @@ Imports Newtonsoft.Json
 
 
 Public Class RibbonMain
-    Dim translater As New TransHelper
+    Shared translater As New TransHelper
     Dim frm As FormSettings
     Private Sub Ribbon1_Load(ByVal sender As System.Object, ByVal e As RibbonUIEventArgs) Handles MyBase.Load
-        Dim settingspath As String = Environment.GetEnvironmentVariable("TEMP") & My.Resources.PubRes.StringSettingPath
-        If IO.File.Exists(settingspath) Then
-            Dim textbuffer As String = IO.File.ReadAllText(settingspath)
-            Dim settingset As JObject = CType(JsonConvert.DeserializeObject(textbuffer), JObject)
-            translater.SetAppid(settingset("appid").ToString)
-            translater.SetKey(settingset("appkey").ToString)
-        Else
-            'MsgBox("配置文件不存在，请先设置appid")
-        End If
+        'Dim settingspath As String = Environment.GetEnvironmentVariable("TEMP") & My.Resources.PubRes.StringSettingPath
+        'If IO.File.Exists(settingspath) Then
+        '    Dim textbuffer As String = IO.File.ReadAllText(settingspath)
+        '    Dim settingset As JObject = CType(JsonConvert.DeserializeObject(textbuffer), JObject)
+        '    If settingset IsNot Nothing Then
+        '        If settingset.ContainsKey("appid") Then
+        '            translater.SetAppid(settingset("appid").ToString)
+        '        End If
+        '        If settingset.ContainsKey("appkey") Then
+        '            translater.SetKey(settingset("appkey").ToString)
+        '        End If
+        '    End If
+        'Else
+        '    'MsgBox("配置文件不存在，请先设置appid")
+        'End If
         'translater.SetAppid("")
         'translater.SetKey("")
+        InitSettings()
     End Sub
     Private Sub ButtonToChs_Click(sender As Object, e As RibbonControlEventArgs) Handles ButtonToChs.Click
         'Dim frmRslt As New FormResult
@@ -93,6 +100,24 @@ Public Class RibbonMain
             frm.Show()
         Else
             MsgBox("有未关闭的设置窗口", vbOKOnly + vbInformation)
+        End If
+    End Sub
+
+    Public Shared Sub InitSettings()
+        Dim settingspath As String = Environment.GetEnvironmentVariable("TEMP") & My.Resources.PubRes.StringSettingPath
+        If IO.File.Exists(settingspath) Then
+            Dim textbuffer As String = IO.File.ReadAllText(settingspath)
+            Dim settingset As JObject = CType(JsonConvert.DeserializeObject(textbuffer), JObject)
+            If settingset IsNot Nothing Then
+                If settingset.ContainsKey("appid") Then
+                    translater.SetAppid(settingset("appid").ToString)
+                End If
+                If settingset.ContainsKey("appkey") Then
+                    translater.SetKey(settingset("appkey").ToString)
+                End If
+            End If
+        Else
+            'MsgBox("配置文件不存在，请先设置appid")
         End If
     End Sub
 
