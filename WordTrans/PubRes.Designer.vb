@@ -125,7 +125,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  查找类似 \wordtrans\settings.json 的本地化字符串。
+        '''  查找类似 \settings.json 的本地化字符串。
         '''</summary>
         Friend Shared ReadOnly Property StringSettingPath() As String
             Get

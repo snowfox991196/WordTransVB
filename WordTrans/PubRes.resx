@@ -145,7 +145,7 @@
     <comment>翻译API地址</comment>
   </data>
   <data name="StringSettingPath" xml:space="preserve">
-    <value>\wordtrans\settings.json</value>
-    <comment>配置文件相对路径</comment>
+    <value>\settings.json</value>
+    <comment>配置文件名</comment>
   </data>
 </root>
