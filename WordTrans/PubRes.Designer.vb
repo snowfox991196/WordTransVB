@@ -65,6 +65,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  查找 System.Byte[] 类型的本地化资源。
+        '''</summary>
+        Friend Shared ReadOnly Property defaultSettings() As Byte()
+            Get
+                Dim obj As Object = ResourceManager.GetObject("defaultSettings", resourceCulture)
+                Return CType(obj,Byte())
+            End Get
+        End Property
+        
+        '''<summary>
         '''  查找 System.Drawing.Bitmap 类型的本地化资源。
         '''</summary>
         Friend Shared ReadOnly Property ImageC2E() As System.Drawing.Bitmap
@@ -111,6 +121,15 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("ImageSign", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  查找类似 \wordtrans\settings.json 的本地化字符串。
+        '''</summary>
+        Friend Shared ReadOnly Property StringSettingPath() As String
+            Get
+                Return ResourceManager.GetString("StringSettingPath", resourceCulture)
             End Get
         End Property
         

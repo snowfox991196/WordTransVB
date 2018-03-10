@@ -269,6 +269,7 @@
       <DependentUpon>RibbonMain.vb</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="Resources\defaultSettings.json" />
     <None Include="ThisAddIn.Designer.xml">
       <DependentUpon>ThisAddIn.vb</DependentUpon>
     </None>

@@ -1,12 +1,23 @@
 ﻿Imports Microsoft.Office.Tools.Ribbon
+Imports Newtonsoft.Json.Linq
+Imports Newtonsoft.Json
 
 
 Public Class RibbonMain
     Dim translater As New TransHelper
     Dim frm As FormSettings
     Private Sub Ribbon1_Load(ByVal sender As System.Object, ByVal e As RibbonUIEventArgs) Handles MyBase.Load
-        translater.SetAppid("20180301000129740")
-        translater.SetKey("2s6vBkgVtNvFYpan1DxV")
+        Dim settingspath As String = Environment.GetEnvironmentVariable("TEMP") & My.Resources.PubRes.StringSettingPath
+        If IO.File.Exists(settingspath) Then
+            Dim textbuffer As String = IO.File.ReadAllText(settingspath)
+            Dim settingset As JObject = CType(JsonConvert.DeserializeObject(textbuffer), JObject)
+            translater.SetAppid(settingset("appid").ToString)
+            translater.SetKey(settingset("appkey").ToString)
+        Else
+            'MsgBox("配置文件不存在，请先设置appid")
+        End If
+        'translater.SetAppid("")
+        'translater.SetKey("")
     End Sub
     Private Sub ButtonToChs_Click(sender As Object, e As RibbonControlEventArgs) Handles ButtonToChs.Click
         'Dim frmRslt As New FormResult
